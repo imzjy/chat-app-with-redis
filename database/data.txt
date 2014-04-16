@@ -1,0 +1,15 @@
+hset users:1 id 1
+hset users:1 name jerrychou
+hset users:1 age 30
+
+hset users:2 id 2
+hset users:2 name zhangsan
+hset users:2 age 21
+
+hset users:3 id 3
+hset users:3 name lisi
+hset users:3 age 55
+
+sadd users:1:friends 2 3
+sadd users:2:friends 1
+sadd users:3:friends 2 1
