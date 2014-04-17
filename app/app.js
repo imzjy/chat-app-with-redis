@@ -26,16 +26,31 @@ function LoginCtrl ($scope, $location) {
 function ChatCtrl ($scope, $http, $routeParams) {
 	var get_friends_path = '/users/' + $routeParams.id + '/friends';
 	$http.get(get_friends_path).success(function(data) {
-    	$scope.users = data;
-  	});
+    	$scope.friends = data;
+	});
 
-	/*
-	$scope.users = [
-		{"id":2,"name":"zhangsan"},
-		{"id":3,"name":"lisi"},
-		{"id":1,"name":"jerryzhou"}
-	];
-	*/
+
+  $scope.talkTo = function (friend_id) {
+    console.log(friend_id);
+    $scope.dialog = {};
+    $scope.dialog.friend = (function (friend_id) {
+      for (var i = 0; i < $scope.friends.length; i++) {
+        if($scope.friends[i].id == friend_id){
+          return $scope.friends[i];
+        }
+      };
+    })(friend_id);
+    $scope.dialog.show = true;
+    $scope.dialog.templateUrl = "partials/chat-dialog-window.html";
+  }
+
+  $scope.closeDialog = function () {
+    $scope.dialog.show = false;
+  }
+
+  $scope.sendMessage = function(friend_id) {
+    console.log(friend_id + ":" + this.new_messsage);
+  }
 
 	$scope.orderProp = "id";
 }

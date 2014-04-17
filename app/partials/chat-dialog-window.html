@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">和 {{dialog.friend.name}} 聊天<span ng-click="closeDialog();" style="float:right; cursor: pointer;" class="glyphicon glyphicon glyphicon-remove"></span></div>
+  <div class="panel-body">
+    <div style="height:240px;">
+    </div>
+  </div>
+  <div class="panel-footer">
+	<form id="new-message-form" ng-submit="sendMessage(dialog.friend.id); new_messsage=''">
+		<input type="text" ng-model="new_messsage" class="form-control" >
+  		<br/>
+  		<input class="btn btn-primary btn-sm" type="submit" value="Submit">	
+	</form>
+  </div>
+</div>
