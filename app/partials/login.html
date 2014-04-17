@@ -1,0 +1,21 @@
+<style type="text/css">
+	.login-form{
+		width: 320px;
+		height: 240px;
+		margin: 0 auto;
+		border: 1px solid #DDD;
+		padding: 15px;
+		margin-top: 180px;
+		border-radius: 5px;
+	}
+</style>
+<div ng-controller="LoginCtrl" class="login-form">
+    <form>
+      <fieldset>
+        <legend>Web Chat</legend>
+        <label for="uid">ID</label>
+        <input id="uid" ng-model="user_id" type="text" placeholder="your id">
+        <button type="submit" class="btn btn-primary" ng-click="goChat(user_id)">Go</button>
+      </fieldset>
+    </form>
+</div>

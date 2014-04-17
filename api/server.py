@@ -11,13 +11,13 @@ class UsersHandler(tornado.web.RequestHandler):
 
 class FriendsHandler(tornado.web.RequestHandler):
     def get(self, id):
-    	json_friends = Users.get_friends(id)
+        json_friends = Users.get_friends(id)
 
         self.write(json_friends)
 
 
 application = tornado.web.Application([
-	(r'/app/(.*)', tornado.web.StaticFileHandler, {'path': app_path}),
+    (r'/app/(.*)', tornado.web.StaticFileHandler, {'path': app_path}),
     (r"/users/(\d+)", UsersHandler),
     (r"/users/(\d+)/friends", FriendsHandler),
 ])

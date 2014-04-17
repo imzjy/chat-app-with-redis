@@ -1,6 +1,31 @@
-function FriendsListCtrl ($scope, $http) {
+var webchatApp = angular.module('webchat', ['ngRoute']);
 
-	$http.get('/users/1/friends').success(function(data) {
+webchatApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: LoginCtrl
+      }).
+      when('/users/:id', {
+        templateUrl: 'partials/chat.html',
+        controller: ChatCtrl
+      }).
+      otherwise({
+        redirectTo: '/login'
+      });
+  }]);
+
+
+function LoginCtrl ($scope, $location) {
+	$scope.goChat = function (user_id) {
+		$location.path('/users/' + user_id);
+	}
+}
+
+function ChatCtrl ($scope, $http, $routeParams) {
+	var get_friends_path = '/users/' + $routeParams.id + '/friends';
+	$http.get(get_friends_path).success(function(data) {
     	$scope.users = data;
   	});
 

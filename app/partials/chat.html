@@ -1,0 +1,15 @@
+<div ng-controller="ChatCtrl">
+  Search: 
+  <input ng-model="query">
+  Order By:
+  <select ng-model="orderProp">
+    <option value="name">Name</option>
+    <option value="id">Id</option>
+  </select>
+
+  <ul>
+    <li ng-repeat="user in users | filter:query | orderBy:orderProp">
+      <a href="#">{{user.name}}<a/>
+    </li>
+  </ul>
+</div>
