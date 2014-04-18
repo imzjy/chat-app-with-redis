@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">和 {{dialog.friend.name}} 聊天<span ng-click="closeDialog();" style="float:right; cursor: pointer;" class="glyphicon glyphicon glyphicon-remove"></span></div>
   <div class="panel-body">
-    <div class="dialog-message-histories">
+    <div class="dialog-message-histories" id="dialog-message-histories">
         <ul>
           <li ng-repeat="msg in dialog.message_histories track by $index">
             <span ng-class="msg.owner">{{msg.text}}</span>

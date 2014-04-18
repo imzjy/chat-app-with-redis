@@ -1,6 +1,14 @@
 .friends-list{
 	/*width: 240px;*/
 }
+.friends-list .active{
+	color: red;
+}
+
+.friends-list .inactive{
+	font-size: 28px;
+}
+
 .chat-form{
 	margin-top: 10px;
 }

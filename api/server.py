@@ -25,15 +25,21 @@ class InMessageHandler(tornado.web.RequestHandler):
             pass #TODO:error process
 
 class UnreadsMessageHandler(tornado.web.RequestHandler):
-    def get(self, id):
-        json_unread_messages = Messages.get_unread(id)
+    def get(self, from_id, to_id):
+        json_unread_messages = Messages.get_unread(from_id, to_id)
         self.write(json_unread_messages)
+
+class NewMessageHandler(tornado.web.RequestHandler):
+    def get(self, id):
+        json_friend_ids = Messages.get_friend_ids_for_new_message(id)
+        self.write(json_friend_ids)
 
 application = tornado.web.Application([
     (r'/app/(.*)', tornado.web.StaticFileHandler, {'path': app_path}),
     (r"/users/(\d+)", UsersHandler),
     (r"/users/(\d+)/friends", FriendsHandler),
-    (r"/users/(\d+)/messages/unread", UnreadsMessageHandler),
+    (r"/users/(\d+)/messages/new", NewMessageHandler),
+    (r"/users/(\d+)/messages/(\d+)/unread", UnreadsMessageHandler),
     (r"/message/in", InMessageHandler),
 ])
 

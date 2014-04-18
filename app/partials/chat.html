@@ -8,7 +8,7 @@
         <div class="panel-body"> 
           <ul>
             <li ng-repeat="friend in friends | filter:query | orderBy:orderProp">
-              <a href ng-click="talkTo(friend.id)">{{friend.name}}</a>
+              <a href ng-click="talkTo(friend.id)" >{{friend.name}}</a>
             </li>
           </ul>
         </div>
