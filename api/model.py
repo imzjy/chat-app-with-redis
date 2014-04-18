@@ -74,6 +74,7 @@ class Messages(object):
     def get_friend_ids_for_new_message(id):
             #print id
             friend_ids = rds.smembers("users:%s:messages:new" % id)
+            rds.delete("users:%s:messages:new" % id)
             return json.dumps(list(friend_ids), 
                 sort_keys=True,
                 indent=4, 

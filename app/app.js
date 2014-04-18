@@ -27,7 +27,6 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
 	var get_friends_path = '/users/' + $routeParams.id + '/friends';
 	$http.get(get_friends_path).success(function(data) {
     	$scope.friends = data;
-      console.log(data)
 	});
 
 
@@ -55,6 +54,7 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
         if(angular.isArray(data) && data.length > 0){
           angular.forEach($scope.friends, function(friend, idx){
               if (data.indexOf(friend.id) > -1) {
+                if (angular.isDefined($scope.current_talk_id) && $scope.current_talk_id === friend.id) return;
                 $scope.friends[idx].active = true;
               }
           });
@@ -77,7 +77,6 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
 
   $scope.talkTo = function (friend_id) {
     $scope.dialog = {};
-
     $scope.closeDialog();
 
     $scope.dialog.friend = (function (friend_id) {
@@ -91,6 +90,13 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
     $scope.dialog.templateUrl = "partials/chat-dialog-window.html";
     $scope.dialog.message_histories = []
     $scope.checkFriendMessage(friend_id);
+
+    $scope.current_talk_id = friend_id;
+    angular.forEach($scope.friends, function(friend, idx){
+        if (friend_id === friend.id) {
+          $scope.friends[idx].active = false;
+        }
+    });
   }
 
   $scope.closeDialog = function () {
@@ -98,6 +104,9 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
     if ( angular.isDefined($scope.checkFriendMessageTimer) ) {
       $interval.cancel($scope.checkFriendMessageTimer);
       delete $scope.checkFriendMessageTimer;
+    }
+    if ( angular.isDefined($scope.current_talk_id) ) {
+      delete $scope.current_talk_id;
     }
   }
 
