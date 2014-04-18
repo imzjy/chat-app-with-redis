@@ -19,5 +19,8 @@
 }
 
 .dialog-message-histories li .me {
+	color: blue;
+}
+.dialog-message-histories li .friend {
 	color: red;
 }

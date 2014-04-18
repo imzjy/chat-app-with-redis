@@ -25,7 +25,7 @@ class Users(object):
                 indent=4, 
                 separators=(',', ': '))
 
-class Message(object):
+class Messages(object):
     """docstring for Message"""
     def __init__(self):
             pass
@@ -51,9 +51,20 @@ class Message(object):
             santinizedMsg['text'] = msg['text']
             santinizedMsg['time'] = time.time()
             try:
-                ret_val = rds.lpush("users:%s:msgbox:%s" % (msg['to'], msg['from']),
+                ret_val = rds.lpush("users:%s:message:%s" % (msg['to'], msg['from']),
+                    json.dumps(santinizedMsg))
+                rds.lpush("users:%s:messages:unread" % (msg['to']), 
                     json.dumps(santinizedMsg))
             except Exception, e:
                 return (0, str(e))
 
             return (ret_val, msg['text'])
+
+    @staticmethod
+    def get_unread(id):
+            #print id
+            unread_message = rds.rpop("users:%s:messages:unread" % (id))
+            if unread_message:
+                return unread_message
+            else:
+                return '{}'

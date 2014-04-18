@@ -9,13 +9,13 @@
 		border-radius: 5px;
 	}
 </style>
-<div ng-controller="LoginCtrl" class="login-form">
+<div class="login-form">
     <form>
       <fieldset>
         <legend>Web Chat</legend>
         <label for="uid">ID</label>
-        <input id="uid" ng-model="user_id" type="text" placeholder="your id">
-        <button type="submit" class="btn btn-primary" ng-click="goChat(user_id)">Go</button>
+        <input id="uid" ng-model="user_id" type="text" placeholder="your id" class="form-control" style="margin-bottom:10px;">
+        <button type="submit" class="btn btn-primary btn-sm" ng-click="goChat(user_id)">Login</button>
       </fieldset>
     </form>
 </div>

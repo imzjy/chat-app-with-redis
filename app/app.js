@@ -23,11 +23,31 @@ function LoginCtrl ($scope, $location) {
 	}
 }
 
-function ChatCtrl ($scope, $http, $routeParams) {
+function ChatCtrl ($scope, $http, $routeParams, $interval) {
 	var get_friends_path = '/users/' + $routeParams.id + '/friends';
 	$http.get(get_friends_path).success(function(data) {
     	$scope.friends = data;
 	});
+
+
+  $scope.checkMessage = function () {
+    if ( angular.isDefined($scope.stop) ) return;
+    $scope.stop = $interval(function () {
+        $http.get('/users/' + $routeParams.id + '/messages/unread').success(function(data) {
+          if(angular.isDefined(data.text)){
+            data.owner = 'friend';
+            $scope.dialog.message_histories.push(data);
+          }
+        });
+
+      }, 1000);
+  }
+
+  $scope.$on('$destroy', function() {
+      if (angular.isDefined(stop)) {
+        $interval.cancel(stop);
+      }
+  });
 
 
   $scope.talkTo = function (friend_id) {
@@ -43,6 +63,7 @@ function ChatCtrl ($scope, $http, $routeParams) {
     $scope.dialog.show = true;
     $scope.dialog.templateUrl = "partials/chat-dialog-window.html";
     $scope.dialog.message_histories = []
+    $scope.checkMessage();
   }
 
   $scope.closeDialog = function () {
@@ -70,10 +91,9 @@ function ChatCtrl ($scope, $http, $routeParams) {
       if (status === 200) {
         $scope.dialog.message_histories.push(
           {"owner": "me",
-            "text": data })
+            "text": data });
       };
     });
-
   }
 
 	$scope.orderProp = "id";
