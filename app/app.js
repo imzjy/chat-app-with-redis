@@ -27,6 +27,7 @@ function ChatCtrl ($scope, $http, $routeParams, $interval) {
 	var get_friends_path = '/users/' + $routeParams.id + '/friends';
 	$http.get(get_friends_path).success(function(data) {
     	$scope.friends = data;
+      console.log(data)
 	});
 
 

@@ -1,4 +1,4 @@
-<div class="container-fluid chat-form" ng-controller="ChatCtrl">
+<div class="container-fluid chat-form">
   <div class="row">
     <div class="col-sm-2">
         <div class="friends-list panel panel-default">
@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body"> 
           <ul>
-            <li ng-repeat="friend in friends | filter:query | orderBy:orderProp">
+            <li ng-repeat="friend in friends | filter:query | orderBy:orderProp" ng-class="friend.active ? 'active' : 'inactive'">
               <a href ng-click="talkTo(friend.id)" >{{friend.name}}</a>
             </li>
           </ul>

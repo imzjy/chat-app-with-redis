@@ -3,10 +3,11 @@
 }
 .friends-list .active{
 	color: red;
+	list-style: disc;
 }
 
 .friends-list .inactive{
-	font-size: 28px;
+	list-style: none;
 }
 
 .chat-form{
