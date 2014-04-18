@@ -4,3 +4,20 @@
 .chat-form{
 	margin-top: 10px;
 }
+
+.dialog-message-histories{
+	height: 240px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+.dialog-message-histories ul {
+	list-style-type: circle;
+}
+.dialog-message-histories li {
+	margin: 10px;
+	border-bottom: 1px dotted silver;
+}
+
+.dialog-message-histories li .me {
+	color: red;
+}

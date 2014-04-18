@@ -1,7 +1,7 @@
 import os
 import tornado.ioloop
 import tornado.web
-from model import Users
+from model import Users, Message
 
 app_path = os.path.join(os.path.dirname(__file__), "../app")
 
@@ -15,11 +15,20 @@ class FriendsHandler(tornado.web.RequestHandler):
 
         self.write(json_friends)
 
+class InMessageHandler(tornado.web.RequestHandler):
+    def post(self):
+        json_msg = self.request.body
+        result = Message.save(json_msg)
+        if result[0] > 0:
+            self.write(result[1])
+        else:
+            pass #TODO:error process
 
 application = tornado.web.Application([
     (r'/app/(.*)', tornado.web.StaticFileHandler, {'path': app_path}),
     (r"/users/(\d+)", UsersHandler),
     (r"/users/(\d+)/friends", FriendsHandler),
+    (r"/message/in", InMessageHandler),
 ])
 
 if __name__ == "__main__":

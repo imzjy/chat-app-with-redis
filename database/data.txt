@@ -22,3 +22,5 @@ sadd users:1:friends 2 3 4 5
 sadd users:2:friends 1 4
 sadd users:3:friends 2 1 5
 sadd users:5:friends 2 1
+
+lpush users:1:msgbox:2 how_are_you?

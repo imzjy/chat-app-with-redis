@@ -42,6 +42,7 @@ function ChatCtrl ($scope, $http, $routeParams) {
     })(friend_id);
     $scope.dialog.show = true;
     $scope.dialog.templateUrl = "partials/chat-dialog-window.html";
+    $scope.dialog.message_histories = []
   }
 
   $scope.closeDialog = function () {
@@ -49,7 +50,30 @@ function ChatCtrl ($scope, $http, $routeParams) {
   }
 
   $scope.sendMessage = function(friend_id) {
-    console.log(friend_id + ":" + this.new_messsage);
+    var newMessage,
+      msgEntry;
+    
+    newMessage = this.new_messsage;
+    if (!newMessage) {
+      return;
+    };
+    
+    msgEntry = {
+      from: $routeParams.id,
+      to: friend_id,
+      text: this.new_messsage
+    }
+
+    console.log(msgEntry);
+    $http.post('/message/in', msgEntry).success(function(data, status) {
+      console.log(status + " : " +data );
+      if (status === 200) {
+        $scope.dialog.message_histories.push(
+          {"owner": "me",
+            "text": data })
+      };
+    });
+
   }
 
 	$scope.orderProp = "id";
