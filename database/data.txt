@@ -1,5 +1,5 @@
 hset users:1 id 1
-hset users:1 name jerrychou
+hset users:1 name "jerry chou"
 hset users:1 age 30
 
 hset users:2 id 2
